@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">motel_management</string>
+    <string name="firebase_logout">Bạn đã đăng xuất</string>
+</resources>

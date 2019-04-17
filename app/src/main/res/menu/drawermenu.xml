@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/dashboard" android:title="dashboard"/>
+    <item android:id="@+id/detail_infomation" android:title="Thông tin cá nhân"/>
+    <item android:id="@+id/messages" android:title="tin nhắn"/>
+    <item android:id="@+id/logout" android:title="đăng xuất"/>
+</menu>

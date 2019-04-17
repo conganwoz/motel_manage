@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "296953961643",
+    "firebase_url": "https://motel-management.firebaseio.com",
+    "project_id": "motel-management",
+    "storage_bucket": "motel-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296953961643:android:f5154ddac4a9a29e",
+        "android_client_info": {
+          "package_name": "com.edu.anlu.motel_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296953961643-883sqdqfrgigo3gnnuinpbpahvduj03j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.anlu.motel_management",
+            "certificate_hash": "f8d9286f7ad183dafc7fee518c87764bd67cc911"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiyJQcxhaYJZV3q-Va1f5-Wx7cc8e62Ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296953961643-k978r61g9pa8dnstvm4llab9v3de82ud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

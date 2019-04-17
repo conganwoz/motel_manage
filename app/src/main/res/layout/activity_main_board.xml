@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainBoard"
+    android:background="@drawable/bg_login">
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/naviga"
+        app:headerLayout="@layout/header"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        app:itemTextColor="@color/darkgray"
+        app:itemIconTint="@color/darkgray"
+        app:menu="@menu/drawermenu"
+        android:layout_gravity="start">
+
+    </android.support.design.widget.NavigationView>
+
+
+
+
+
+    <TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+
+                    android:id="@+id/motel_manage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:textSize="20sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Bạn chưa quản lý khu trọ nào!\nThêm quản lý"
+                            android:textAlignment="center"
+                            android:textColor="#fff"/>
+                        <Button
+                            android:layout_marginTop="20dp"
+                            android:layout_gravity="center"
+                            android:textAlignment="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bt_bg"
+                            android:text="+"
+                            android:textSize="50dp"
+                            android:textColor="#fff"
+                            android:padding="3dp"
+                            />
+                    </LinearLayout>
+                    <GridView
+                        android:visibility="invisible"
+                        android:id="@+id/list_motel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:horizontalSpacing="20dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="20dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/my_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bạn không đang thuê phòng trọ nào!"
+                        android:textColor="#fff"
+                        android:textAlignment="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/motel_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="No.1 Hai Bà Trưng, Hà Nội"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Số phòng:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/room_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="T1-4"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tiền điện tháng này:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/electro_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="120 VNĐ (200đ/1 số)"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tiền nước tháng này:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/water_month"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="100 VNĐ (300đ/1 số)"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tiền phòng:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/place_bill"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="700 VNĐ"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Phí phụ khác:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/other_bill"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="100 VNĐ (300đ/1 số)"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng phí chưa trả:"
+                            android:textColor="#fff"/>
+                        <TextView
+                            android:id="@+id/not_pay_till_now"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ed_bg"
+                            android:text="100 VNĐ (300đ/1 số)"
+                            android:textColor="#fff"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Liên lạc:"
+                            android:textColor="#fff"/>
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Gửi tin nhắn cho chủ trọ"
+                            android:textColor="#fff"
+                            android:background="@drawable/bt_bg"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+
+
+
+
+
+
+</android.support.v4.widget.DrawerLayout>
