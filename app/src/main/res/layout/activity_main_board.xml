@@ -8,18 +8,7 @@
     tools:context=".MainBoard"
     android:background="@drawable/bg_login">
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/naviga"
-        app:headerLayout="@layout/header"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        app:itemTextColor="@color/darkgray"
-        app:itemIconTint="@color/darkgray"
-        app:menu="@menu/drawermenu"
-        android:layout_gravity="start">
 
-    </android.support.design.widget.NavigationView>
 
 
 
@@ -53,8 +42,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <ListView
+
+                        android:id="@+id/list_motel"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:gravity="center"
+                        android:horizontalSpacing="20dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="20dp" />
                     <LinearLayout
 
+
+                        android:id="@+id/no_motel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -63,10 +66,11 @@
                             android:textSize="20sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Bạn chưa quản lý khu trọ nào!\nThêm quản lý"
+                            android:text="Thêm quản lý"
                             android:textAlignment="center"
                             android:textColor="#fff"/>
                         <Button
+                            android:id="@+id/btn_add"
                             android:layout_marginTop="20dp"
                             android:layout_gravity="center"
                             android:textAlignment="center"
@@ -79,9 +83,21 @@
                             android:padding="3dp"
                             />
                     </LinearLayout>
-                    <GridView
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/motel_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+
+                    <ListView
                         android:visibility="invisible"
-                        android:id="@+id/list_motel"
+                        android:id="@+id/motel_room"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -234,7 +250,18 @@
     </TabHost>
 
 
+    <android.support.design.widget.NavigationView
+        android:id="@+id/naviga"
+        app:headerLayout="@layout/header"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        app:itemTextColor="@color/darkgray"
+        app:itemIconTint="@color/darkgray"
+        app:menu="@menu/drawermenu"
+        android:layout_gravity="start">
 
+    </android.support.design.widget.NavigationView>
 
 
 

@@ -8,6 +8,8 @@ public class User {
     String idCard;
     String userId;
     boolean isFillAllInfor = false;
+    String idRoom = "";
+
     public User(){
 
     }
@@ -48,5 +50,13 @@ public class User {
 
     public boolean isFillAllInfor() {
         return isFillAllInfor;
+    }
+
+    public String getIdRoom() {
+        return idRoom;
+    }
+
+    public void setIdRoom(String idRoom) {
+        this.idRoom = idRoom;
     }
 }

@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
         android:textColor="#fff"
-        android:padding="8dp"
+        android:padding="4dp"
         android:gravity="center"
         android:textSize="20dp"
         />
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toStartOf="@id/guideline_right"
         app:layout_constraintStart_toEndOf="@id/guideline_left"
         android:textColor="#fff"
-        android:padding="16dp"
+        android:padding="10dp"
         android:gravity="center"
         android:textSize="20dp"
         app:layout_constraintTop_toBottomOf="@id/title"
@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/username"
         android:background="@drawable/ed_bg"
         android:hint="Địa chỉ khu trọ"
-        android:padding="16dp"
+        android:padding="12dp"
         android:textColor="#fff"
         />
 
@@ -83,11 +83,13 @@
         app:layout_constraintTop_toBottomOf="@id/motel_address"
         android:background="@drawable/ed_bg"
         android:hint="Số tầng"
-        android:padding="16dp"
+        android:padding="12dp"
         android:textColor="#fff"
         />
 
-    <EditText
+
+
+    <RadioGroup
         android:id="@+id/motel_kind"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -99,9 +101,32 @@
         app:layout_constraintTop_toBottomOf="@id/num_floor"
         android:background="@drawable/ed_bg"
         android:hint="Loại (nhà riêng, khu trọ tập thể,...)"
-        android:padding="16dp"
+        android:padding="14dp"
         android:textColor="#fff"
-        />
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/person_home"
+                android:layout_weight="1"
+                android:textColor="#fff"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhà riêng"
+                />
+
+            <RadioButton
+                android:id="@+id/apartment"
+                android:layout_weight="1"
+                android:textColor="#fff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khu tập thể"
+                />
+        </LinearLayout>
+    </RadioGroup>
 
 
     <EditText
@@ -124,8 +149,24 @@
         />
 
 
+    <EditText
+        android:gravity="top|left"
+        android:scrollbars="vertical"
+        android:id="@+id/price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/login_form_details"
+        app:layout_constraintEnd_toStartOf="@id/guideline_right"
+        app:layout_constraintStart_toEndOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@id/motel_rule"
+        android:background="@drawable/ed_bg"
+        android:hint="Giá phòng"
+        android:padding="12dp"
+        android:textColor="#fff"
+        />
     <Button
-        android:id="@+id/bt_update"
+        android:id="@+id/bt_add_motel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -136,7 +177,7 @@
         android:background="@drawable/bt_bg"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/motel_rule"/>
+        app:layout_constraintTop_toBottomOf="@id/price"/>
     
 
 

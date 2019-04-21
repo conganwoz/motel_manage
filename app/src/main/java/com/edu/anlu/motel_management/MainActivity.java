@@ -72,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
             FirebaseUser user = mAuth.getCurrentUser();
-            gotoMainBoard(user);
+            //gotoMainBoard(user);
             //updateUI(user);
+            checkLoginedBefore(user);
+            Static_Variable.isLoggout = false;
         }
 
         if (Static_Variable.isLoggout) {
-            Static_Variable.isLoggout = false;
+            //Static_Variable.isLoggout = false;
             Logout();
         }
     }
@@ -117,15 +119,14 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.INVISIBLE);
+                        Static_Variable.isLoggout = false;
                         Log.d("TAG", "signin success");
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         String userId = user.getUid();
                         Static_Variable.currentUser = user;
-                        //Log.d("checkb", String.valueOf(checkLoginedBefore(userId)));
-                        //updateUI(user);
+
                         checkLoginedBefore(user);
-                        //gotoAddInfor(user);
                     } else {
                         progressBar.setVisibility(View.INVISIBLE);
                         Log.d("TAG", "signin failure");
@@ -137,39 +138,41 @@ public class MainActivity extends AppCompatActivity {
 
     // kiểm tra user đã đăng nhập vào app trước đó chưa
     private void checkLoginedBefore(FirebaseUser user) {
+        Log.d("check_func","enter checkLoginedBefore");
 
         String userId = user.getUid();
+        Log.d("user_id_",userId);
         DatabaseReference ref = databaseUsers.child("uses");
         ref.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                boolean checkIn = false;
                 if (dataSnapshot.exists()) {
-                    boolean checkIn = false;
+
                     for (DataSnapshot userSnapShot : dataSnapshot.getChildren()) {
                         User user = userSnapShot.getValue(User.class);
 
 
                         if (user.getUserId().equals(userId)) {
                             checkIn = true;
-                            //gotoMainBoard(user,email);
-
                             Log.d("ID_user", user.getUserId() + "----" + userId);
-//                            if (user.isFillAllInfor == true) {
-//
-//                            }
+                            break;
                         }
                     }
 
-                    if (checkIn) {
-                        gotoMainBoard(user);
 
-                    } else {
-                        gotoAddInfor(user);
-                    }
                 }
-                Log.d("inhere", "inhere");
+                if (checkIn) {
+                    gotoMainBoard(user);
+                    Log.d("inhere", "mainboard");
+
+                } else {
+                    gotoAddInfor(user);
+                    Log.d("inhere", "addinfo");
+                }
+
             }
 
             @Override
@@ -191,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_USER_NAME, userName);
         intent.putExtra(EXTRA_USER_EMAIL, userEmail);
         startActivity(intent);
+        Log.d("check123", "mainboard");
     }
 
 
@@ -202,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_USER_ID, userId);
         intent.putExtra(EXTRA_USER_NAME, userName);
         startActivity(intent);
+        Log.d("check123", "addinfo");
     }
 
     private void updateUI(FirebaseUser user) {

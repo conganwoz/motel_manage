@@ -7,13 +7,16 @@ public class MotelRoom {
     double waterMonth;
     double roomMonth;
     double otherFee;
-    double notPaidTillNow;
+    double notPaidTillNow = 0;
+    String locate;
 
 
     public MotelRoom(){
 
     }
-    public MotelRoom(String userId, double area, double electroMonth, double waterMonth, double roomMonth, double otherFee, double notPaidTillNow) {
+
+
+    public MotelRoom(String userId, double area, double electroMonth, double waterMonth, double roomMonth, double otherFee, double notPaidTillNow, String locate) {
         this.userId = userId;
         this.area = area;
         this.electroMonth = electroMonth;
@@ -21,8 +24,18 @@ public class MotelRoom {
         this.roomMonth = roomMonth;
         this.otherFee = otherFee;
         this.notPaidTillNow = notPaidTillNow;
+        this.locate = locate;
     }
 
+
+    public MotelRoom(double area, double electroMonth, double waterMonth, double roomMonth, double otherFee, String locate) {
+        this.area = area;
+        this.electroMonth = electroMonth;
+        this.waterMonth = waterMonth;
+        this.roomMonth = roomMonth;
+        this.otherFee = otherFee;
+        this.locate = locate;
+    }
 
     public String getUserId() {
         return userId;
