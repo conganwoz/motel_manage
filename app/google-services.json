@@ -21,6 +21,18 @@
             "package_name": "com.edu.anlu.motel_management",
             "certificate_hash": "f8d9286f7ad183dafc7fee518c87764bd67cc911"
           }
+        },
+        {
+          "client_id": "296953961643-4c8ukftvrv5niqih6f5c8tdn995bp90a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.anlu.motel_management",
+            "certificate_hash": "58b1f4f02b425fb28b392c325d07bb54e1b69282"
+          }
+        },
+        {
+          "client_id": "296953961643-k978r61g9pa8dnstvm4llab9v3de82ud.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
