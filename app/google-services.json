@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "296953961643-883sqdqfrgigo3gnnuinpbpahvduj03j.apps.googleusercontent.com",
+          "client_id": "296953961643-kmajb00p2kcsf1hj7e7e774ch54mekas.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.edu.anlu.motel_management",
-            "certificate_hash": "f8d9286f7ad183dafc7fee518c87764bd67cc911"
+            "certificate_hash": "4fc485724d1663d8eeb5d17f6763e005f18fa8e7"
           }
         },
         {
@@ -28,6 +28,14 @@
           "android_info": {
             "package_name": "com.edu.anlu.motel_management",
             "certificate_hash": "58b1f4f02b425fb28b392c325d07bb54e1b69282"
+          }
+        },
+        {
+          "client_id": "296953961643-883sqdqfrgigo3gnnuinpbpahvduj03j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.anlu.motel_management",
+            "certificate_hash": "f8d9286f7ad183dafc7fee518c87764bd67cc911"
           }
         },
         {
