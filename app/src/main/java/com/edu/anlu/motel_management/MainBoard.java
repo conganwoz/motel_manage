@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -35,6 +36,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainBoard extends TabActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String EXTRA_ROOM_ID = "com.edu.anlu.roomid";
+    public static final String EXTRA_MOTEL_ID = "com.edu.anlu.motelid";
+    public static final String EXTRA_AREA_ROOM = "com.edu.anlu.arearoom";
+    public static final String EXTRA_ELEC_MONTH = "com.edu.anlu.elecmonth";
+    public static final String EXTRA_LOCATE_ROOM = "com.edu.anlu.locateroom";
+    public static final String EXTRA_NOT_PAID = "com.edu.anlu.notpaid";
+    public static final String EXTRA_OTHER_FEE = "com.edu.anlu.otherfee";
+    public static final String EXTRA_PRICE_MONTH = "com.edu.anlu.motelid";
+    public static final String EXTRA_WATER_MONTH = "com.edu.anlu.watermonth";
     // khởi tạo các view
     TextView userName;
     TextView email;
@@ -42,18 +53,30 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     ViewGroup noMotel;
     Button btnAdd;
     GoogleSignInClient mGoogleSignInClient;
+    GridView gridListRoom;
+
+    TextView addrDetail;
+    TextView kindDetail;
+    TextView numFloorDetail;
+    TextView ruleDetail;
+    TextView priceDetail;
+    TextView otherPriceDetail;
 
     DatabaseReference databaseMotel;
     // dữ liệu của người dùng
     String uName;
     String uEmail;
     String uId;
+    List<String> key_motels = new ArrayList<>();
+    List<String> key_rooms = new ArrayList<>();
 
 
     public static final String EXTRA_USER_ID = "com.edu.anlu.userid";
     public static final String EXTRA_USER_NAME = "com.edu.anlu.username";
 
     List<Motel> listMotel = new ArrayList<>();
+    List<MotelRoom> listRoom = new ArrayList<>();
+    String currentMotelId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +112,18 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
 
 
 
-        // truy van cac view cac view
+        // truy van cac view
 
         noMotel = findViewById(R.id.no_motel);
         lvListMotel = findViewById(R.id.list_motel);
         btnAdd = findViewById(R.id.btn_add);
+
+        addrDetail = (TextView) findViewById(R.id.addrDetail);
+        kindDetail = (TextView) findViewById(R.id.kindDetail);
+        numFloorDetail = (TextView) findViewById(R.id.numFloorDetail);
+        ruleDetail = (TextView) findViewById(R.id.ruleDetail);
+        priceDetail = (TextView) findViewById(R.id.price_detail);
+        otherPriceDetail = (TextView) findViewById(R.id.other_price_detail);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +131,11 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
                 goToAddMotel();
             }
         });
+
+
+
+        gridListRoom = (GridView) findViewById(R.id.gridViewRoom);
+        gridListRoom.setAdapter(new CustomGridRoom(this, listRoom));
 
         // end set
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
@@ -133,6 +168,98 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
         //presentData();
 
 
+
+
+        // set ListView motel item click
+        lvListMotel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getDetailMotelSelected(position);
+            }
+        });
+
+
+        // set gridView motel item click
+        gridListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                gotoRoomActivity(position);
+            }
+        });
+
+
+    }
+
+
+    public void gotoRoomActivity(int position){
+        String id_room = key_rooms.get(position);
+        String id_motel = currentMotelId;
+        Intent intent = new Intent(this, RoomManage.class);
+        intent.putExtra(MainActivity.EXTRA_USER_ID, uId);
+        intent.putExtra(MainActivity.EXTRA_USER_NAME, uName);
+        intent.putExtra(MainActivity.EXTRA_USER_EMAIL, uEmail);
+        intent.putExtra(this.EXTRA_ROOM_ID,id_room);
+        intent.putExtra(this.EXTRA_MOTEL_ID,id_motel);
+        intent.putExtra(this.EXTRA_AREA_ROOM, listRoom.get(position).getArea()+"");
+        intent.putExtra(this.EXTRA_ELEC_MONTH, listRoom.get(position).getElectroMonth()+"");
+        intent.putExtra(this.EXTRA_LOCATE_ROOM, listRoom.get(position).getLocate()+"");
+        intent.putExtra(this.EXTRA_NOT_PAID, listRoom.get(position).getNotPaidTillNow()+"");
+        intent.putExtra(this.EXTRA_OTHER_FEE, listRoom.get(position).getOtherFee()+"");
+        intent.putExtra(this.EXTRA_PRICE_MONTH, listRoom.get(position).getRoomMonth()+"");
+        intent.putExtra(this.EXTRA_WATER_MONTH, listRoom.get(position).getWaterMonth()+"");
+        startActivity(intent);
+
+    }
+
+
+    public void getDetailMotelSelected(int position){
+        String id_motel = key_motels.get(position);
+        currentMotelId = id_motel;
+        DatabaseReference detailMotel = FirebaseDatabase.getInstance().getReference("motels").child(uId).child(id_motel);
+        detailMotel.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Motel motel = dataSnapshot.getValue(Motel.class);
+                addrDetail.setText("Địa chỉ: "+motel.getAddress());
+                kindDetail.setText(motel.getKind() == 1? "Loại: Nhà riêng" : "Loại: Khu tập thể");
+                numFloorDetail.setText("Số tầng: "+motel.getNumberFloor());
+                ruleDetail.setText("Quy tắc khu trọ: "+motel.getRuleDescription());
+                priceDetail.setText("Giá phòng (chung): "+motel.getRoomPerMonth()+" VNĐ");
+                otherPriceDetail.setText("Giá điện: "+motel.getElectroPerMonth()+", giá nước: "+motel.getWaterPerMonth()+" (số/tháng)");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference detailAllRoom = FirebaseDatabase.getInstance().getReference("rooms").child(uId).child(id_motel);
+        listRoom.clear();
+        key_rooms.clear();
+        detailAllRoom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot motelSnapshot : dataSnapshot.getChildren()){
+                    MotelRoom room = motelSnapshot.getValue(MotelRoom.class);
+                    listRoom.add(room);
+                    key_rooms.add(motelSnapshot.getKey());
+                }
+                gridListRoom.setAdapter(new CustomGridRoom(MainBoard.this, listRoom));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        getTabHost().setCurrentTab(1);
+
     }
 
 
@@ -141,10 +268,12 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listMotel.clear();
+                key_motels.clear();
                 for(DataSnapshot motelSnapshot : dataSnapshot.getChildren()){
                     Motel artist = motelSnapshot.getValue(Motel.class);
-
                     listMotel.add(artist);
+                    key_motels.add(motelSnapshot.getKey());
+                    Log.d("key_motel",motelSnapshot.getKey());
 
                 }
                 MotelList adaptor = new MotelList(MainBoard.this,listMotel);

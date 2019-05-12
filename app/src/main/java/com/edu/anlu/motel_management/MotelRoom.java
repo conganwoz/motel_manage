@@ -92,4 +92,12 @@ public class MotelRoom {
     public void setNotPaidTillNow(double notPaidTillNow) {
         this.notPaidTillNow = notPaidTillNow;
     }
+
+    public String getLocate() {
+        return locate;
+    }
+
+    public void setLocate(String locate) {
+        this.locate = locate;
+    }
 }

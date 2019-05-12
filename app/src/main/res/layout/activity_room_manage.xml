@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context=".MainActivity">
+
+
+
+
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thông Tin Phòng Trọ"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/tvRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phòng:"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/text"/>
+
+    <EditText
+        android:id="@+id/locateRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRoom"
+        android:text="101"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+    <TextView
+        android:id="@+id/tvArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Diện tích (m2):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/locateRoom"/>
+
+    <EditText
+        android:id="@+id/areaRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvArea"
+        android:text="42"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+    <TextView
+        android:id="@+id/tvElec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá điện (đồng/số):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/areaRoom"/>
+
+    <EditText
+        android:id="@+id/elecRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvElec"
+        android:text="100"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+    <TextView
+        android:id="@+id/tvWater"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá nước (đồng/số):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/elecRoom"/>
+
+    <EditText
+        android:id="@+id/waterRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvWater"
+        android:text="100"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá phòng (VNĐ):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/waterRoom"/>
+
+    <EditText
+        android:id="@+id/priceRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPrice"
+        android:text="100"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+    <TextView
+        android:id="@+id/tvOtherFee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phí khác (VNĐ):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/priceRoom"/>
+
+    <EditText
+        android:id="@+id/otherFeeRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvOtherFee"
+        android:text="100"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+    <TextView
+        android:id="@+id/tvNotPaid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chưa trả (VNĐ):"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/otherFeeRoom"/>
+
+    <EditText
+        android:id="@+id/notPaidRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvNotPaid"
+        android:text="100"
+        android:textColor="#fff"
+        android:background="@drawable/ed_bg"/>
+
+
+
+    <Button
+        android:id="@+id/bt_message_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tin nhắn và người thuê"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:background="@drawable/bt_bg"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        android:layout_below="@+id/notPaidRoom"/>
+
+    <Button
+        android:id="@+id/bt_update_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cập nhật"
+        android:textSize="18sp"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:background="@drawable/bt_bg"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        android:layout_below="@+id/bt_message_room"/>
+
+
+</RelativeLayout>

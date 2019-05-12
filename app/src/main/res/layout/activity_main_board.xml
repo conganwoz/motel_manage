@@ -94,18 +94,65 @@
                     android:orientation="vertical">
 
 
-
-                    <ListView
-                        android:visibility="invisible"
-                        android:id="@+id/motel_room"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="30dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bt_bg">
+                        <TextView
+                            android:id="@+id/addrDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="address"
+                            android:textColor="#fff"
+                            />
+                        <TextView
+                            android:id="@+id/kindDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Hình thức: nhà riêng"
+                            android:textColor="#fff"
+                            />
+                        <TextView
+                            android:id="@+id/numFloorDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Số tầng: 5"
+                            android:textColor="#fff"
+                            />
+                        <TextView
+                            android:id="@+id/ruleDetail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Quy định: không xả rác"
+                            android:textColor="#fff"
+                            />
+                        <TextView
+                            android:id="@+id/price_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="1800000"
+                            android:textColor="#fff"
+                            />
+                        <TextView
+                            android:id="@+id/other_price_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="2000"
+                            android:textColor="#fff"
+                            />
+                    </LinearLayout>
+
+
+                    <GridView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gridViewRoom"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:columnWidth="120dp"
                         android:gravity="center"
-                        android:horizontalSpacing="20dp"
-                        android:numColumns="2"
-                        android:verticalSpacing="20dp" />
+                        android:numColumns="auto_fit" />
                 </LinearLayout>
 
 

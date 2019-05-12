@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme1">
+        <activity android:name=".RoomManage"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +23,7 @@
         <activity android:name=".CompleteInfo" />
         <activity android:name=".MainBoard" />
         <activity android:name=".Add_Motel" />
-        <activity android:name=".Add_Room"></activity>
+        <activity android:name=".Add_Room" />
     </application>
 
 </manifest>
