@@ -30,7 +30,7 @@
         android:text="Phòng:"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/text"/>
 
     <EditText
@@ -163,7 +163,7 @@
         android:id="@+id/bt_message_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="Tin nhắn và người thuê"
         android:textSize="18sp"
         android:textColor="#fff"
@@ -177,7 +177,7 @@
         android:id="@+id/bt_update_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="Cập nhật"
         android:textSize="18sp"
         android:textColor="#fff"

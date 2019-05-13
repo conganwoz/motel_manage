@@ -44,7 +44,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     public static final String EXTRA_LOCATE_ROOM = "com.edu.anlu.locateroom";
     public static final String EXTRA_NOT_PAID = "com.edu.anlu.notpaid";
     public static final String EXTRA_OTHER_FEE = "com.edu.anlu.otherfee";
-    public static final String EXTRA_PRICE_MONTH = "com.edu.anlu.motelid";
+    public static final String EXTRA_PRICE_MONTH = "com.edu.anlu.pricemonth";
     public static final String EXTRA_WATER_MONTH = "com.edu.anlu.watermonth";
     // khởi tạo các view
     TextView userName;
@@ -77,6 +77,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     List<Motel> listMotel = new ArrayList<>();
     List<MotelRoom> listRoom = new ArrayList<>();
     String currentMotelId = "";
+    String currentRoomId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +184,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
         gridListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentRoomId = key_rooms.get(position);
                 gotoRoomActivity(position);
             }
         });
@@ -191,9 +193,36 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     }
 
 
+    @Override
+    protected void onResume() {
+        Log.d("inhere_c","inhere");
+        super.onResume();
+        DatabaseReference detailAllRoom = FirebaseDatabase.getInstance().getReference("rooms").child(uId).child(currentMotelId);
+        listRoom.clear();
+        key_rooms.clear();
+        detailAllRoom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot motelSnapshot : dataSnapshot.getChildren()){
+                    MotelRoom room = motelSnapshot.getValue(MotelRoom.class);
+                    listRoom.add(room);
+                    key_rooms.add(motelSnapshot.getKey());
+                }
+                gridListRoom.setAdapter(new CustomGridRoom(MainBoard.this, listRoom));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void gotoRoomActivity(int position){
         String id_room = key_rooms.get(position);
         String id_motel = currentMotelId;
+        Log.d("idmotel1",id_motel);
         Intent intent = new Intent(this, RoomManage.class);
         intent.putExtra(MainActivity.EXTRA_USER_ID, uId);
         intent.putExtra(MainActivity.EXTRA_USER_NAME, uName);
@@ -215,6 +244,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     public void getDetailMotelSelected(int position){
         String id_motel = key_motels.get(position);
         currentMotelId = id_motel;
+        Log.d("idmotel2",id_motel);
         DatabaseReference detailMotel = FirebaseDatabase.getInstance().getReference("motels").child(uId).child(id_motel);
         detailMotel.addValueEventListener(new ValueEventListener() {
             @Override
@@ -264,6 +294,8 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
 
 
     public void getData(){
+        listMotel.clear();
+        key_motels.clear();
         databaseMotel.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

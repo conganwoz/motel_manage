@@ -53,7 +53,7 @@ public class CustomGridRoom extends BaseAdapter {
         holder.roomNumber.setText("Phòng: "+room.getLocate());
         holder.roomArea.setText("Diện tích: "+room.getArea());
         holder.roomPrice.setText("Giá: "+room.getRoomMonth());
-        holder.roomNotpaid.setText("Chưa trả: "+room.getNotPaidTillNow());
+        holder.roomNotpaid.setText("Chưa trả: "+room.getNotPaidTillNow()+" VNĐ");
         return convertView;
     }
 
