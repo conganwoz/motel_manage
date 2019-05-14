@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/ed_bg">
+
+    <TextView
+        android:paddingLeft="20dp"
+        android:id="@+id/from_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From: Abc"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="36dp"
+        android:textColor="#fff"/>
+
+    <TextView
+        android:paddingLeft="20dp"
+        android:id="@+id/to_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To: Def"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:textColor="#fff"/>
+    <TextView
+        android:paddingLeft="20dp"
+        android:id="@+id/content_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:textColor="#fff"/>
+</LinearLayout>

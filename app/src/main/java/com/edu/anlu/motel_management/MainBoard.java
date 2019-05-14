@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -46,6 +47,9 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     public static final String EXTRA_OTHER_FEE = "com.edu.anlu.otherfee";
     public static final String EXTRA_PRICE_MONTH = "com.edu.anlu.pricemonth";
     public static final String EXTRA_WATER_MONTH = "com.edu.anlu.watermonth";
+    public static final String EXTRA_LIVEIN_KEY = "com.edu.anlu.liveinkey";
+    public static final String EXTRA_HOST_ID = "com.edu.anlu.hostid";
+    public static final String EXTRA_GUEST_ID = "com.edu.anlu.guestid";
     // khởi tạo các view
     TextView userName;
     TextView email;
@@ -62,6 +66,16 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     TextView priceDetail;
     TextView otherPriceDetail;
 
+    TextView motel_address;
+    TextView room_number;
+    TextView electro_month;
+    TextView water_month;
+    TextView place_bill;
+    TextView other_bill;
+    TextView not_pay_till_now;
+    Button btn_sendMessage_to_host;
+    EditText message_send_to_host;
+
     DatabaseReference databaseMotel;
     // dữ liệu của người dùng
     String uName;
@@ -69,6 +83,8 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
     String uId;
     List<String> key_motels = new ArrayList<>();
     List<String> key_rooms = new ArrayList<>();
+    String liveInKey;
+    String hostId;
 
 
     public static final String EXTRA_USER_ID = "com.edu.anlu.userid";
@@ -118,6 +134,16 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
         noMotel = findViewById(R.id.no_motel);
         lvListMotel = findViewById(R.id.list_motel);
         btnAdd = findViewById(R.id.btn_add);
+
+        motel_address = (TextView) findViewById(R.id.motel_address);
+        room_number = (TextView) findViewById(R.id.room_number);
+        electro_month = (TextView) findViewById(R.id.electro_month);
+        water_month = (TextView) findViewById(R.id.water_month);
+        place_bill = (TextView) findViewById(R.id.place_bill);
+        other_bill = (TextView) findViewById(R.id.other_bill);
+        not_pay_till_now = (TextView) findViewById(R.id.not_pay_till_now);
+        message_send_to_host = (EditText) findViewById(R.id.message_send_to_host);
+        btn_sendMessage_to_host = (Button) findViewById(R.id.btn_sendMessage_to_host);
 
         addrDetail = (TextView) findViewById(R.id.addrDetail);
         kindDetail = (TextView) findViewById(R.id.kindDetail);
@@ -189,6 +215,95 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
             }
         });
 
+        getDataMyRoom();
+
+
+        btn_sendMessage_to_host.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message msg = new Message(uId, hostId, message_send_to_host.getText().toString());
+                DatabaseReference databaseLiveInOne = FirebaseDatabase.getInstance().getReference("liveins").child(liveInKey);
+                databaseLiveInOne.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        LiveIn liveIn = dataSnapshot.getValue(LiveIn.class);
+                        liveIn.addMessage(msg);
+                        databaseLiveInOne.setValue(liveIn);
+                        Toast.makeText(MainBoard.this, "Đã gửi!", Toast.LENGTH_SHORT).show();
+                        message_send_to_host.setText("");
+                        databaseLiveInOne.removeEventListener(this);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
+
+    public void getDataMyRoom(){
+        DatabaseReference databaseLiveIn;
+        databaseLiveIn = FirebaseDatabase.getInstance().getReference("liveins");
+
+        databaseLiveIn.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot motelSnapshot : dataSnapshot.getChildren()){
+                    LiveIn liveIn = motelSnapshot.getValue(LiveIn.class);
+                    if(liveIn.getGuestId().equals(uId)){
+                        liveInKey = motelSnapshot.getKey();
+                        hostId = liveIn.getHostId();
+                        // get addres motel
+                        DatabaseReference motel = FirebaseDatabase.getInstance().getReference("motels").child(liveIn.getHostId()).child(liveIn.getMotelId());
+                        motel.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Motel motel = dataSnapshot.getValue(Motel.class);
+                                motel_address.setText(motel.getAddress());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        // get info room
+                        DatabaseReference databaseRoom = FirebaseDatabase.getInstance().getReference("rooms").child(liveIn.getHostId()).child(liveIn.getMotelId()).child(liveIn.getRoomId());
+                        databaseRoom.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                MotelRoom room = dataSnapshot.getValue(MotelRoom.class);
+                                room_number.setText(room.getLocate());
+                                electro_month.setText(room.getElectroMonth()+"đ/1 số");
+                                water_month.setText(room.getWaterMonth()+"đ/1 số");
+                                place_bill.setText(room.getRoomMonth()+" VNĐ");
+                                other_bill.setText(room.getOtherFee()+" VNĐ");
+                                not_pay_till_now.setText(room.getNotPaidTillNow()+" VNĐ");
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -346,6 +461,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
                 break;
             }
             case R.id.messages: {
+                gotoMessageActivity();
                 break;
             }
             case R.id.logout: {
@@ -355,11 +471,28 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
                 Log.d("logout","get Click");
                 break;
             }
+            case R.id.detail_infomation: {
+
+                break;
+            }
             default:{
 
             }
         }
         return true;
+    }
+
+
+    void gotoInfoUser(){
+
+    }
+
+
+    void gotoMessageActivity(){
+        Intent intent = new Intent(this, MessageList.class);
+        intent.putExtra(EXTRA_LIVEIN_KEY, liveInKey);
+        intent.putExtra(EXTRA_GUEST_ID,uId);
+        startActivity(intent);
     }
 
     void Logout(){

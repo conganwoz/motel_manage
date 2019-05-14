@@ -168,7 +168,8 @@
                         android:layout_height="wrap_content"
                         android:text="Bạn không đang thuê phòng trọ nào!"
                         android:textColor="#fff"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center"
+                        android:visibility="invisible"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -280,7 +281,25 @@
                             android:layout_height="wrap_content"
                             android:text="Liên lạc:"
                             android:textColor="#fff"/>
+
+                        <EditText
+
+                            android:layout_width="match_parent"
+                            android:inputType="textMultiLine"
+                            android:lines="2"
+                            android:gravity="top|left"
+                            android:scrollbars="vertical"
+                            android:id="@+id/message_send_to_host"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColorHint="#fff"
+                            android:background="@drawable/ed_bg"
+                            android:hint="Nhập tin nhắn"
+                            android:padding="16dp"
+                            android:textColor="#fff"
+                            />
                         <Button
+                            android:id="@+id/btn_sendMessage_to_host"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Gửi tin nhắn cho chủ trọ"

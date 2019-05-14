@@ -3,6 +3,7 @@ package com.edu.anlu.motel_management;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,10 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +41,8 @@ public class MeaageAndUser extends AppCompatActivity {
     private boolean checkInRoom = false;
     private String currentGuestId;
 
+    LiveIn liveInAddmessage;
+
     DatabaseReference databaseLiveIn;
     ListView list_user;
     ViewGroup noUserRoom;
@@ -44,6 +50,8 @@ public class MeaageAndUser extends AppCompatActivity {
     ViewGroup l_out_list;
     TextView guestName;
     TextView idCardGuest;
+    EditText message_user;
+    Button bt_send_message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +62,8 @@ public class MeaageAndUser extends AppCompatActivity {
         noUserRoom = (ViewGroup) findViewById(R.id.no_user);
         has_user = (ViewGroup) findViewById(R.id.has_user);
         l_out_list = (ViewGroup) findViewById(R.id.l_out_list);
+        message_user = (EditText) findViewById(R.id.message_user);
+        bt_send_message = (Button) findViewById(R.id.bt_send_message);
 
         guestName = (TextView) findViewById(R.id.guestName);
         idCardGuest = (TextView) findViewById(R.id.idCardGuest);
@@ -97,6 +107,34 @@ public class MeaageAndUser extends AppCompatActivity {
         });
 
 
+        // set event send message
+        bt_send_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                liveInAddmessage = new LiveIn();
+                String textMessage = message_user.getText().toString();
+                Message msg = new Message(hostId,currentGuestId, textMessage);
+                DatabaseReference liveInOne = FirebaseDatabase.getInstance().getReference("liveins").child(liveInKey);
+
+                liveInOne.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        LiveIn liveIn = dataSnapshot.getValue(LiveIn.class);
+                        liveIn.addMessage(msg);
+                        liveInOne.setValue(liveIn);
+                        Toast.makeText(MeaageAndUser.this, "Đã gửi!", Toast.LENGTH_SHORT).show();
+                        message_user.setText("");
+                        liveInOne.removeEventListener(this);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
 
 
@@ -190,13 +228,16 @@ public class MeaageAndUser extends AppCompatActivity {
 
             DatabaseReference databaseLiveInExist = FirebaseDatabase.getInstance().getReference("liveins").child(liveInKey);
             databaseLiveInExist.child("guestId").setValue(guestId);
+            currentGuestId = guestId;
             Toast.makeText(this, "Cập nhật khách thành công!", Toast.LENGTH_SHORT).show();
         }else {
             LiveIn liveIn = new LiveIn(roomId, hostId, motelId, guestId);
+            currentGuestId = guestId;
             DatabaseReference databaseLiveIns = FirebaseDatabase.getInstance().getReference("liveins");
             String id = databaseLiveIns.push().getKey();
             databaseLiveIns.child(id).setValue(liveIn);
             Toast.makeText(this, "Thêm khách thành công!", Toast.LENGTH_SHORT).show();
+            liveInKey = id;
         }
     }
 

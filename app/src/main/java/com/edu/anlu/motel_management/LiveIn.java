@@ -8,7 +8,7 @@ public class LiveIn {
     private String hostId;
     private String motelId;
     private String guestId;
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     public LiveIn(){
         messages = new ArrayList<>();
