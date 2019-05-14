@@ -6,16 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:layout_weight="3">
 
 
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/no_user"
-        android:orientation="vertical">
-
+        android:visibility="invisible">
         <TextView
+
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,30 +26,91 @@
             android:textSize="20sp"
             android:textAlignment="center"
             android:text="Hiện tại chưa có khách ở phòng này!\nĐăng ký khách mới"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/l_out_list">
         <ListView
 
             android:id="@+id/list_user"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
             android:gravity="center"
             android:horizontalSpacing="20dp"
             android:numColumns="2"
             android:verticalSpacing="20dp"
             />
-
     </LinearLayout>
 
-
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/has_user"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/ed_bg">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/guestName"
+                android:text="khách: Luu Cong An"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/idCardGuest"
+                android:text="CMND: 123456789"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                />
 
 
+
+        </LinearLayout>
+
+        <EditText
+
+            android:layout_width="match_parent"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:id="@+id/message_user"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColorHint="#fff"
+            android:background="@drawable/ed_bg"
+            android:hint="Nhập tin nhắn"
+            android:padding="16dp"
+            android:textColor="#fff"
+            />
+
+
+
+        <Button
+            android:id="@+id/bt_send_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Gửi"
+            android:textSize="20sp"
+            android:textColor="@color/login_form_detail_medium"
+            android:textAllCaps="false"
+            android:background="@drawable/bt_bg"
+            />
     </LinearLayout>
 
 

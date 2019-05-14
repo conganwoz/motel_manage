@@ -102,6 +102,9 @@ public class RoomManage extends AppCompatActivity {
 
     public void gotoMessageUserActivity(){
         Intent intent = new Intent(this, MeaageAndUser.class);
+        intent.putExtra(MainBoard.EXTRA_USER_ID,uId);
+        intent.putExtra(MainBoard.EXTRA_MOTEL_ID,motelId);
+        intent.putExtra(MainBoard.EXTRA_ROOM_ID,roomId);
         startActivity(intent);
     }
 
