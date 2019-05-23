@@ -222,23 +222,27 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
             @Override
             public void onClick(View v) {
                 Message msg = new Message(uId, hostId, message_send_to_host.getText().toString());
-                DatabaseReference databaseLiveInOne = FirebaseDatabase.getInstance().getReference("liveins").child(liveInKey);
-                databaseLiveInOne.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        LiveIn liveIn = dataSnapshot.getValue(LiveIn.class);
-                        liveIn.addMessage(msg);
-                        databaseLiveInOne.setValue(liveIn);
-                        Toast.makeText(MainBoard.this, "Đã gửi!", Toast.LENGTH_SHORT).show();
-                        message_send_to_host.setText("");
-                        databaseLiveInOne.removeEventListener(this);
-                    }
+                if(liveInKey != null && !liveInKey.equals("")){
+                    DatabaseReference databaseLiveInOne = FirebaseDatabase.getInstance().getReference("liveins").child(liveInKey);
+                    databaseLiveInOne.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            LiveIn liveIn = dataSnapshot.getValue(LiveIn.class);
+                            liveIn.addMessage(msg);
+                            databaseLiveInOne.setValue(liveIn);
+                            Toast.makeText(MainBoard.this, "Đã gửi!", Toast.LENGTH_SHORT).show();
+                            message_send_to_host.setText("");
+                            databaseLiveInOne.removeEventListener(this);
+                        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }else {
+                    Toast.makeText(MainBoard.this, "Bạn chưa ở phòng trọ nào!", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -258,6 +262,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
                     LiveIn liveIn = motelSnapshot.getValue(LiveIn.class);
                     if(liveIn.getGuestId().equals(uId)){
                         liveInKey = motelSnapshot.getKey();
+                        Toast.makeText(MainBoard.this, liveInKey, Toast.LENGTH_SHORT).show();
                         hostId = liveIn.getHostId();
                         // get addres motel
                         DatabaseReference motel = FirebaseDatabase.getInstance().getReference("motels").child(liveIn.getHostId()).child(liveIn.getMotelId());

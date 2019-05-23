@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     // chuyển hướng sang activity mainboard của user
     private void gotoMainBoard(FirebaseUser user) {
+        Static_Variable.currentUser = user;
         String userId = user.getUid();
         String userName = user.getDisplayName();
         String userEmail = user.getEmail();
@@ -200,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
     // chuyển hướng sang activity thêm thông tin
     private void gotoAddInfor(FirebaseUser user) {
+        Static_Variable.currentUser = user;
         String userId = user.getUid();
         String userName = user.getDisplayName();
         Intent intent = new Intent(this, InfoSignIn.class);

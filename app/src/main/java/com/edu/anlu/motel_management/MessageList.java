@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +26,7 @@ public class MessageList extends AppCompatActivity {
 
     String liveinKey = "";
     String hostId;
-    String guestId;
+    String uId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +39,39 @@ public class MessageList extends AppCompatActivity {
         // get data from previous activity
         Intent intent = getIntent();
         liveinKey = intent.getStringExtra(MainBoard.EXTRA_LIVEIN_KEY);
-        guestId = intent.getStringExtra(MainBoard.EXTRA_GUEST_ID);
+        Toast.makeText(this, liveinKey, Toast.LENGTH_SHORT).show();
+        uId = intent.getStringExtra(MainBoard.EXTRA_GUEST_ID);
+        //hostId = intent.getStringExtra(MainBoard.EXTRA_HOST_ID);
         getDataMessage();
     }
 
 
     void getDataMessage(){
-        DatabaseReference databaseMessages = FirebaseDatabase.getInstance().getReference("liveins").child(liveinKey);
+        DatabaseReference databaseMessages = FirebaseDatabase.getInstance().getReference("liveins");
         databaseMessages.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                LiveIn liveIn = dataSnapshot.getValue(LiveIn.class);
-                messages = liveIn.getMessages();
-                MessageListAdaptor adaptor = new MessageListAdaptor(MessageList.this, messages, hostId, guestId);
-                list_message.setAdapter(adaptor);
+                if(dataSnapshot.exists()){
+
+                    for(DataSnapshot msgSnapshot : dataSnapshot.getChildren()){
+                        LiveIn liveIn = msgSnapshot.getValue(LiveIn.class);
+                        if(uId.equals(liveIn.getGuestId())){
+                            messages.addAll(liveIn.getMessages());
+                            MessageListAdaptor adaptor = new MessageListAdaptor(MessageList.this, messages, liveIn.getHostId(), uId);
+                            list_message.setAdapter(adaptor);
+                        }else if(uId.equals(liveIn.getHostId())){
+                            messages.addAll(liveIn.getMessages());
+                            MessageListAdaptor adaptor = new MessageListAdaptor(MessageList.this, messages, uId, liveIn.getGuestId());
+                            list_message.setAdapter(adaptor);
+                        }
+
+                    }
+
+
+
+
+                }
+
             }
 
             @Override
