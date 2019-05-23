@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_USER_NAME = "com.edu.anlu.username";
     public static final String EXTRA_USER_EMAIL = "com.edu.anlu.useremail";
     static final int GOOGLE_SIGN = 123;
+    public static User userShare = null;
     FirebaseAuth mAuth;
     Button btn_login, btn_logout;
     TextView text;
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         databaseUsers = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
                 .Builder()
                 .requestIdToken("296953961643-k978r61g9pa8dnstvm4llab9v3de82ud.apps.googleusercontent.com")
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if (user.getUserId().equals(userId)) {
                             checkIn = true;
+                            userShare = user;
                             Log.d("ID_user", user.getUserId() + "----" + userId);
                             break;
                         }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "296953961643-8e2vu624serj1mqprmn8ohlpqraqvcvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.anlu.motel_management",
+            "certificate_hash": "afed99c62e90ddf95888a661c4ece86fbc0a19ce"
+          }
+        },
+        {
           "client_id": "296953961643-3mb4j2j7ebjevhmf8cdnbvv2j7b8bc3j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -12,6 +12,8 @@
     <color name="darkgray">#6c6c6c</color>
     <color name="purple">#C86DD7</color>
 
+
+    <color name="profile">#1462e0</color>
     <color name="login_form_details">#CCFFFFFF</color>
     <color name="login_form_details_light">#1AFFFFFF</color>
     <color name="login_form_detail_medium">#66FFFFFF</color>

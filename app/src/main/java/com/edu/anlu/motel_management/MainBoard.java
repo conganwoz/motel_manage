@@ -472,7 +472,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
                 break;
             }
             case R.id.detail_infomation: {
-
+                gotoInfoUser();
                 break;
             }
             default:{
@@ -484,7 +484,9 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
 
 
     void gotoInfoUser(){
-
+        Intent intent = new Intent(this, user_infor_ac.class);
+        intent.putExtra(MainActivity.EXTRA_USER_ID,uId);
+        startActivity(intent);
     }
 
 
