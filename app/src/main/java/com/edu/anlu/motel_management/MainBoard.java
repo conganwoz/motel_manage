@@ -210,6 +210,7 @@ public class MainBoard extends TabActivity implements NavigationView.OnNavigatio
         gridListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setBackgroundColor(Color.parseColor("#4451c4"));
                 currentRoomId = key_rooms.get(position);
                 gotoRoomActivity(position);
             }

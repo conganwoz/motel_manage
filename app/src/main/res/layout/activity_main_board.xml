@@ -92,8 +92,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -148,12 +146,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/gridViewRoom"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
+
                         android:columnWidth="120dp"
                         android:gravity="center"
-                        android:numColumns="auto_fit" />
+                        android:numColumns="auto_fit"
+                        android:background="@drawable/ed_bg"
+                        android:horizontalSpacing="5dp"
+                        android:verticalSpacing="5px"
+                        android:listSelector="@drawable/list_selector"/>
+
+
+
                 </LinearLayout>
+
 
 
                 <LinearLayout
