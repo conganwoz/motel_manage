@@ -152,8 +152,7 @@
                         android:numColumns="auto_fit"
                         android:background="@drawable/ed_bg"
                         android:horizontalSpacing="5dp"
-                        android:verticalSpacing="5px"
-                        android:listSelector="@drawable/list_selector"/>
+                        android:verticalSpacing="5px" />
 
 
 
